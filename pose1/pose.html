@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      #video,
+      #canvas {
+        position: absolute;
+        transform: scaleX(-1); /* 비디오와 캔버스를 가로 방향으로 반전 */
+        top: 0;
+        left: 0;
+        width: 60%;
+        height: 60%;
+        object-fit: cover;
+      }
+      #poseImage {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30%;
+}
+#processImage {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 30%;
+      }
+    </style>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PoseNet Example</title>
+  </head>
+  <body>
+    <video id="video" width="640" height="480" autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    <script src="pose.js"></script>
+    <img id="poseImage" src="./pose.png">
+    <img id="processImage" src="./process.png">
+  </body>
+</html>
