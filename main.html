@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PoseNet Example</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        #timer-setup {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;             /* 플렉스 컨테이너로 설정 */
+            flex-direction: column;    /* 자식 요소들을 수직으로 정렬 */
+            align-items: center;       /* 가로축을 중심으로 중앙 정렬 */
+        }
+
+
+        h2 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .timer-display {
+            font-size: 2em;
+            margin: 20px 0;
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: 200px;
+            margin-top: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 24px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            color: #888;
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="timer-setup">
+        <h2>Save the spine</h2>
+        <div class="timer-display">
+            <span id="time-minutes">00</span>:<span id="time-seconds">00</span>
+        </div>
+        <div>
+            <input type="number" id="minutes-input" min="0" placeholder="Minutes">
+            <input type="number" id="seconds-input" min="0" max="59" placeholder="Seconds">
+        </div>
+        <button onclick="startTimer()">▶️</button>
+        <p>Please set the time</p>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
