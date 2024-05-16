@@ -64,52 +64,78 @@ function calculateHeadAngle(pose) {
 function checkPose(pose) {
   const headAngle = calculateHeadAngle(pose);
   const nose = pose.keypoints[0];
-  const leftWrist = pose.keypoints[10];
-
-  console.log(headAngle);
-  return (headAngle > 50) && (headAngle <60) && (leftWrist.position.y < nose.position.y);
+  const rightWrist = pose.keypoints[10];
+  const height=nose.position.y-rightWrist.position.y;
+  const width=nose.position.x-rightWrist.position.x;
+  return (headAngle > 40) && (headAngle <60) && (height>0) && (height<100) && (Math.abs(width)<200);
 }
 
 async function detectPoseInRealTime(video, net) {
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const successMessage = document.createElement("div");
-successMessage.innerText = "3초간 더 유지하세요.";
-successMessage.style.position = "absolute";
-successMessage.style.top = "20px";
-successMessage.style.left = "20px";
-successMessage.style.color = "green";
-successMessage.style.fontSize = "40px";
-successMessage.style.display = "none";
-document.body.appendChild(successMessage);
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const successMessage = document.createElement("div");
+  successMessage.innerText = "7초간 더 유지하세요.";
+  successMessage.style.position = "absolute";
+  successMessage.style.top = "20px";
+  successMessage.style.left = "20px";
+  successMessage.style.color = "#2ecc71"; // Bright green color
+  successMessage.style.fontFamily = "Arial, sans-serif"; // Clean and readable font
+  successMessage.style.fontSize = "36px"; // Larger font size
+  successMessage.style.display = "none";
+  document.body.appendChild(successMessage);
 
-let successFlag = false;
-let successTimeout = null;
+  let successFlag = false;
+  let failedCount=0;
+  let successTimeout = null;
+  let startTime = Date.now();
+  let countdownInterval = null;
 
-function handleSuccess() {
+  function handleSuccess() {
     successMessage.style.display = "block";
-    // 3초 후에 이동
-    successTimeout = setTimeout(() => {
+
+    countdownInterval = setInterval(() => {
+      const elapsed = Math.floor((Date.now() - startTime) / 1000);
+      successMessage.innerText = `7초간 더 유지하세요. (${7 - elapsed})`;
+
+      if (elapsed >= 7) {
+        clearInterval(countdownInterval);
         window.location.href = "../pose2/pose.html";
-    }, 3000);
+      }
+    }, 1000);
+  }
+
+  function resetTimer() {
+    clearInterval(countdownInterval);
+    successMessage.style.display = "none";
+    successFlag = false;
+    startTime = Date.now();
+  }
+
+  function poseDetectionFrame() {
+    net
+      .estimateSinglePose(video, {
+        flipHorizontal: false,
+      })
+      .then((pose) => {
+        drawPose(pose);
+        if (!checkPose(pose)) {
+          failedCount++;
+        } else{
+          failedCount=0;
+          successFlag=true;
+        }
+        if (failedCount>30){
+          resetTimer();
+        }
+        if(successFlag){
+          handleSuccess();
+        }
+        requestAnimationFrame(poseDetectionFrame);
+      });
+  }
+  poseDetectionFrame();
 }
 
-function poseDetectionFrame() {
-    net
-        .estimateSinglePose(video, {
-            flipHorizontal: false,
-        })
-        .then((pose) => {
-            drawPose(pose);
-            if (!successFlag && checkPose(pose)) {
-                successFlag = true;
-                handleSuccess();
-            }
-            requestAnimationFrame(poseDetectionFrame);
-        });
-}
-poseDetectionFrame();
-}
 
 function drawPose(pose) {
   const canvas = document.getElementById("canvas");
