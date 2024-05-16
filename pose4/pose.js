@@ -90,7 +90,7 @@ async function detectPoseInRealTime(video, net) {
       successMessage.style.display = "block";
       // 3초 후에 이동
       successTimeout = setTimeout(() => {
-          window.location.href = "../pose3/pose.html";
+          window.location.href = "../pose5/pose.html";
       }, 3000);
   }
 
