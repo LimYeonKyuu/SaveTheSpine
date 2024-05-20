@@ -48,12 +48,17 @@ function checkPose(pose) {
   const nose = pose.keypoints[0];
   const leftWrist = pose.keypoints[9];
   const rightWrist = pose.keypoints[10];
-  const leftHeight=nose.position.y-leftWrist.position.y;
-  const rightHeight=nose.position.y-rightWrist.position.y;
-  const rightWidth=nose.position.x-rightWrist.position.x;
-  const leftWidth=nose.position.x-leftWrist.position.x;
-  console.log(rightWidth,' ,', leftWidth);
-  return  (leftHeight>100) && (rightHeight>100) && (Math.abs(rightWidth)<40) && (Math.abs(leftWidth+95)<40);
+  const leftHeight = nose.position.y - leftWrist.position.y;
+  const rightHeight = nose.position.y - rightWrist.position.y;
+  const rightWidth = nose.position.x - rightWrist.position.x;
+  const leftWidth = nose.position.x - leftWrist.position.x;
+  console.log(rightWidth, " ,", leftWidth);
+  return (
+    leftHeight > 100 &&
+    rightHeight > 100 &&
+    Math.abs(rightWidth) < 40 &&
+    Math.abs(leftWidth + 95) < 40
+  );
 }
 
 async function detectPoseInRealTime(video, net) {
@@ -71,7 +76,7 @@ async function detectPoseInRealTime(video, net) {
   document.body.appendChild(successMessage);
 
   let successFlag = false;
-  let failedCount=0;
+  let failedCount = 0;
   let successTimeout = null;
   let startTime = Date.now();
   let countdownInterval = null;
@@ -85,7 +90,7 @@ async function detectPoseInRealTime(video, net) {
 
       if (elapsed >= 7) {
         clearInterval(countdownInterval);
-        window.location.href = "../main.html";
+        window.location.href = "../finish.html";
       }
     }, 1000);
   }
@@ -106,14 +111,14 @@ async function detectPoseInRealTime(video, net) {
         drawPose(pose);
         if (!checkPose(pose)) {
           failedCount++;
-        } else{
-          failedCount=0;
-          successFlag=true;
+        } else {
+          failedCount = 0;
+          successFlag = true;
         }
-        if (failedCount>30){
+        if (failedCount > 30) {
           resetTimer();
         }
-        if(successFlag){
+        if (successFlag) {
           handleSuccess();
         }
         requestAnimationFrame(poseDetectionFrame);
@@ -121,7 +126,6 @@ async function detectPoseInRealTime(video, net) {
   }
   poseDetectionFrame();
 }
-
 
 function drawPose(pose) {
   const canvas = document.getElementById("canvas");

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finish Page</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 50px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #exitButton {
+      background-color: #ff4c4c;
+      color: white;
+    }
+
+    #tryAgainButton {
+      background-color: #4caf50;
+      color: white;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <img
+        src="finish.png"
+        alt="Congratulations Image"
+        class="congrats-image"
+        width="200"
+        height="200"
+      />
+      <h1>Finish Congraturation!</h1>
+      <div class="buttons">
+        <!-- <button id="exitButton">종료하기</button> -->
+        <button id="tryAgainButton">Try Again</button>
+      </div>
+    </div>
+    <script src="scripts.js"></script>
+  </body>
+</html>
