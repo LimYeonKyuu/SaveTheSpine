@@ -52,7 +52,7 @@ function checkPose(pose) {
   const rightHeight=nose.position.y-rightWrist.position.y;
   const rightWidth=nose.position.x-rightWrist.position.x;
   const leftWidth=nose.position.x-leftWrist.position.x;
-  return  (leftHeight>140) && (rightHeight>140) && (Math.abs(rightWidth)<250) && (Math.abs(leftWidth)<250);
+  return  (leftHeight>110) && (rightHeight>110) && (Math.abs(rightWidth)<300) && (Math.abs(leftWidth)<300);
 }
 
 async function detectPoseInRealTime(video, net) {

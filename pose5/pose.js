@@ -48,17 +48,12 @@ function checkPose(pose) {
   const nose = pose.keypoints[0];
   const leftWrist = pose.keypoints[9];
   const rightWrist = pose.keypoints[10];
-  const leftHeight = nose.position.y - leftWrist.position.y;
-  const rightHeight = nose.position.y - rightWrist.position.y;
-  const rightWidth = nose.position.x - rightWrist.position.x;
-  const leftWidth = nose.position.x - leftWrist.position.x;
-  console.log(rightWidth, " ,", leftWidth);
-  return (
-    leftHeight > 100 &&
-    rightHeight > 100 &&
-    Math.abs(rightWidth) < 40 &&
-    Math.abs(leftWidth + 95) < 40
-  );
+  const leftHeight=nose.position.y-leftWrist.position.y;
+  const rightHeight=nose.position.y-rightWrist.position.y;
+  const rightWidth=nose.position.x-rightWrist.position.x;
+  const leftWidth=nose.position.x-leftWrist.position.x;
+  console.log(rightWidth,' ,', leftWidth);
+  return  (leftHeight>80) && (rightHeight>80) && (Math.abs(rightWidth)<80) && (Math.abs(leftWidth+95)<80);
 }
 
 async function detectPoseInRealTime(video, net) {
