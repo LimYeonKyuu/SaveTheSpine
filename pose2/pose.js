@@ -67,7 +67,7 @@ function checkPose(pose) {
   const leftWrist = pose.keypoints[9];
   const height=nose.position.y-leftWrist.position.y;
   const width=nose.position.x-leftWrist.position.x;
-  return (headAngle > 300) && (headAngle <340)  && (height>0) && (height<200) && (Math.abs(width)<300);
+  return (headAngle > 290) && (headAngle <350)  && (height>0) && (height<200) && (Math.abs(width)<300);
 }
 
 async function detectPoseInRealTime(video, net) {
