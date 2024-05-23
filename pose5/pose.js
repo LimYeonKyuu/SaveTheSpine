@@ -71,7 +71,7 @@ async function detectPoseInRealTime(video, net) {
   document.body.appendChild(successMessage);
 
   let successFlag = false;
-  let failedCount=0;
+  let failedCount = 0;
   let successTimeout = null;
   let startTime = Date.now();
   let countdownInterval = null;
@@ -85,7 +85,7 @@ async function detectPoseInRealTime(video, net) {
 
       if (elapsed >= 7) {
         clearInterval(countdownInterval);
-        window.location.href = "../main.html";
+        window.location.href = "../finish.html";
       }
     }, 1000);
   }
@@ -106,14 +106,14 @@ async function detectPoseInRealTime(video, net) {
         drawPose(pose);
         if (!checkPose(pose)) {
           failedCount++;
-        } else{
-          failedCount=0;
-          successFlag=true;
+        } else {
+          failedCount = 0;
+          successFlag = true;
         }
-        if (failedCount>30){
+        if (failedCount > 30) {
           resetTimer();
         }
-        if(successFlag){
+        if (successFlag) {
           handleSuccess();
         }
         requestAnimationFrame(poseDetectionFrame);
@@ -121,7 +121,6 @@ async function detectPoseInRealTime(video, net) {
   }
   poseDetectionFrame();
 }
-
 
 function drawPose(pose) {
   const canvas = document.getElementById("canvas");
